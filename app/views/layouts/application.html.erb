@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Codesnippet</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<!-- Second navbar for sign in -->
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-main">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%= link_to "Code Snippets", root_path, class: "navbar-brand" %> 
+        </div>
+    
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="nav-main">
+          <ul class="nav navbar-nav">
+            <li><%= link_to "Kinds", kinds_path %></li>
+            <li><%= link_to "Snippets", snippets_path %></li>
+            <li><%= link_to "New Snippet", new_snippet_path %></li>
+            <!-- TODO: nav collapse sign in <li>
+              <a class="btn btn-default btn-outline btn-circle"  data-toggle="collapse" href="#nav-signin" aria-expanded="false" aria-controls="nav-signin">Sign in</a>
+            </li> -->
+            </ul> 
+            <%= menu_group pull: :right do %> 
+              <% if current_user %> 
+                <%= menu_text "Howdy, " + current_user.first_name %>
+                <%= menu_item "Log Out", sessions_path, method: :delete %>              
+              <% else %>              
+                             
+                <%= menu_item "Sign Up", new_user_path %>              
+                <%= form_tag sessions_path do -%>              
+                <p>
+                  <%= text_field_tag :email, nil, placeholder: "Email" %></p>
+                <p>
+                  <%= password_field_tag :password, nil, placeholder: "Password" %></p>
+                <p>
+                  <%= submit_tag "Sign in", class: 'btn btn-primary'%></p>
+                <% end -%>              
+              <% end %>              
+            <% end %>  
+                     
+
+          <!-- <div class="collapse nav navbar-nav nav-collapse" id="nav-signin">
+            <form class="navbar-form navbar-right form-inline" role="form">
+              <div class="form-group">
+                <label class="sr-only" for="Email">Email</label>
+                <input type="email" class="form-control" id="Email" placeholder="Email" autofocus required />
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="Password">Password</label>
+                <input type="password" class="form-control" id="Password" placeholder="Password" required />
+              </div>
+              <button type="submit" class="btn btn-success">Sign in</button>
+            </form>
+          </div> -->
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav><!-- /.navbar -->
+    <%= bootstrap_flash %>
+
+<%= yield %>
+
+</body>
+</html>
