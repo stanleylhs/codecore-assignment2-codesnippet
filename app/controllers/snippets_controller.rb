@@ -13,7 +13,7 @@
 
 class SnippetsController < ApplicationController
   before_action :authenticate_user, except: [:index, :show]
-  before_action :find_snippet, only: [:show, :edit, :update]
+  before_action :find_snippet, only: [:show, :edit, :update, :destroy]
   before_action :authorize_user, only: [:edit, :destroy, :update]
   
   def new
@@ -61,6 +61,15 @@ class SnippetsController < ApplicationController
     else
       flash[:alert] = "Error, please check below"
       render :edit
+    end
+  end
+
+  def destroy
+    if @snippet.destroy
+      redirect_to snippets_path, notice: "Snippet deleted."
+    else
+      flash[:alert] = "Error!"
+      render @snippet
     end
   end
 

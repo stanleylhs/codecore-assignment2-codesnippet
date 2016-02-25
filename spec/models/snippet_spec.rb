@@ -15,7 +15,7 @@ require 'rails_helper'
 
 RSpec.describe Snippet, type: :model do
   describe "validations" do
-    it "doesn't allow creating a snippet with no title" do
+    it "doesn't allow creating a snippet with no title"
       s = Snippet.new
       s.valid?
       expect(s.errors).to have_key(:title)

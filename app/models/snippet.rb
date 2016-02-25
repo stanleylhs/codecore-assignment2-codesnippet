@@ -17,14 +17,14 @@ class Snippet < ActiveRecord::Base
 
   validates :title, presence: true, uniqueness: true
   validates :work, presence: true
-  # check this below 
+  # check this below
   validates :kind_id, presence: true
 
   def self.filtered_result(uid)
     if uid
-      where("is_private = false OR (is_private = true AND user_id = ?)", uid)
+      where("is_private = FALSE OR (is_private = TRUE AND user_id = ?)", uid)
     else
-      where("is_private = false")
+      where("is_private = FALSE")
     end
   end
 end

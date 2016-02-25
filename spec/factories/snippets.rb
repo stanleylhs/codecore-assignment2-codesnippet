@@ -13,7 +13,10 @@
 
 FactoryGirl.define do
   factory :snippet do
+    association :user, factory: :user
+    association :kind, factory: :kind
     sequence(:title) { |n| "#{Faker::Company.bs}-#{n}" }
     work             { Faker::Lorem.paragraph }
+    is_private       false
   end
 end

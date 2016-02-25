@@ -13,5 +13,6 @@ end
 20.times do
   Snippet.create title: Faker::Company.bs ,
                  work:  Faker::Lorem.paragraph,
-                 kind: Kind.find(1 + rand(Kind.count))
+                 kind: Kind.all.sample,
+                 is_private: false
 end
