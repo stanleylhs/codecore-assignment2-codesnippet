@@ -41,10 +41,13 @@ RSpec.describe KindsController, type: :controller do
     attributes_for(:kind, name: "")
   }
 
+  # let(:user) { create(:user)}
+  let(:admin) { create(:user, admin: true) }
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # KindsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { {user_id: admin.id} }
 
   describe "GET #index" do
     it "assigns all kinds as @kinds" do
@@ -61,6 +64,25 @@ RSpec.describe KindsController, type: :controller do
       expect(assigns(:kind)).to eq(kind)
     end
   end
+
+  # context "without signed user" do
+  #   it "redirects user to signin" do
+  #     valid_request
+  #     expect(response).to redirect_to(new_session_path)
+  #   end
+  # end
+  # context "with signin user who is not admin" do
+  #   signin(user)
+  #   it "redirects to root" do
+  #     snippet_private_not_owner
+  #     get :show, id: snippet_private_not_owner.id
+  #     expect(response).to redirect_to(root_path)
+  #   end
+  # end
+  # context "with admin signed in" do
+  #   # code here
+  # end
+
 
   describe "GET #new" do
     it "assigns a new kind as @kind" do

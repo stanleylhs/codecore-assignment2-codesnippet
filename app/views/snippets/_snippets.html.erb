@@ -2,10 +2,18 @@
   <div>
     <h1><%= link_to snippet.title, snippet_path(snippet) %></h1>
     <div><%= markdown(snippet.work) %></div>
-    <dt>Kind: </dt>
-    <dd><%= snippet.kind.name %></dd>
-    <dt>Created at: </dt>
-    <dd><%=l snippet.created_at %></dd>
+    <dl>
+      <dt>Kind: </dt>
+      <dd><%= snippet.kind.name %></dd>
+    </dl>
+    <dl>
+      <dt>Created at: </dt>
+      <dd><%=l snippet.created_at %></dd>
+    </dl>
+    <dl>
+      <dt>Created by: </dt>
+      <dd><%= snippet.user_full_name %></dd>
+    </dl>
     <% if can? :manage, snippet %>
       <%= link_to t('.edit', :default => t("helpers.links.edit")),
                   edit_snippet_path(snippet), :class => 'btn btn-default btn-xs' %>

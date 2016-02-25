@@ -9,7 +9,9 @@
 #
 
 class KindsController < ApplicationController
+  before_action :authenticate_user, except: [:index, :show]
   before_action :set_kind, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user, except: [:index, :show]
 
   # GET /kinds
   # GET /kinds.json
@@ -73,13 +75,19 @@ class KindsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_kind
-      @kind = Kind.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_kind
+    @kind = Kind.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def kind_params
-      params.require(:kind).permit(:name)
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def kind_params
+    params.require(:kind).permit(:name)
+  end
+
+  def authorize_user
+    unless can? :manage, @kind 
+      redirect_to root_path, alert: "access denied!"
     end
+  end
 end

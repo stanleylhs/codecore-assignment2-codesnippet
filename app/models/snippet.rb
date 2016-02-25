@@ -27,4 +27,6 @@ class Snippet < ActiveRecord::Base
       where("is_private = FALSE")
     end
   end
+
+  delegate :full_name, to: :user, prefix: true, allow_nil: :true
 end
